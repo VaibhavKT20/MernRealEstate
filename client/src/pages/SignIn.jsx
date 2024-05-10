@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   signInStart,
   signInSuccess,
   signInFailure,
-} from '../redux/user/userSlice';
-import OAuth from '../components/OAuth';
+} from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -25,10 +25,10 @@ export default function SignIn() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch('/api/auth/signin', {
-        method: 'POST',
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -39,7 +39,7 @@ export default function SignIn() {
         return;
       }
       dispatch(signInSuccess(data));
-      navigate('/');
+      navigate("/");
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
@@ -68,7 +68,7 @@ export default function SignIn() {
             disabled={loading}
             className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:bg-blue-600 disabled:opacity-80"
           >
-            {loading ? 'Loading...' : 'Sign In'}
+            {loading ? "Loading..." : "Sign In"}
           </button>
           <OAuth />
         </form>
