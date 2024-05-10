@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import OAuth from '../components/OAuth';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -19,10 +19,10 @@ export default function SignUp() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch('/api/auth/signup', {
-        method: 'POST',
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -35,7 +35,7 @@ export default function SignUp() {
       }
       setLoading(false);
       setError(null);
-      navigate('/sign-in');
+      navigate("/sign-in");
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -43,46 +43,63 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h1 className="text-3xl font-semibold text-center mb-7">Sign Up</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Username"
-            className="border p-3 rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-            id="username"
-            onChange={handleChange}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            className="border p-3 rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-            id="email"
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="border p-3 rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-            id="password"
-            onChange={handleChange}
-          />
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+        <h1 className="text-3xl font-semibold text-center mb-7 text-gray-800">
+          Sign Up
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <input
+              type="text"
+              placeholder="Username"
+              className="block w-full px-4 py-3 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 placeholder-gray-400"
+              id="username"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="email"
+              placeholder="Email"
+              className="block w-full px-4 py-3 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 placeholder-gray-400"
+              id="email"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              className="block w-full px-4 py-3 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 placeholder-gray-400"
+              id="password"
+              onChange={handleChange}
+              required
+            />
+          </div>
           <button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition duration-300"
             disabled={loading}
-            className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:bg-blue-600 disabled:opacity-80"
           >
-            {loading ? 'Loading...' : 'Sign Up'}
+            {loading ? "Loading..." : "Sign Up"}
           </button>
           <OAuth />
         </form>
-        <div className="flex gap-2 mt-5">
-          <p>Have an account?</p>
-          <Link to="/sign-in" className="text-blue-500">
-            Sign in
-          </Link>
+        <div className="text-center mt-4 text-gray-800">
+          <p>
+            Have an account?{" "}
+            <Link
+              to="/sign-in"
+              className="font-semibold text-indigo-600 hover:text-indigo-500"
+            >
+              Sign in here
+            </Link>
+          </p>
         </div>
-        {error && <p className="text-red-500 mt-5">{error}</p>}
+        {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
       </div>
     </div>
   );
